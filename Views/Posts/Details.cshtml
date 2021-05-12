@@ -1,0 +1,55 @@
+﻿
+@using MyBlog.Services
+@inject IBlogImageService _imageService
+@model MyBlog.Models.Post
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<article>
+    <div class="container">
+        <div class=" col-lg-8 col-md-10 mx-auto">
+            @Html.Raw(Model.Content)
+        </div>
+    </div>
+</article>
+
+<hr />
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <a class="btn btn-dark btn-block btn-sm rounded" asp-area="identity"
+       asp-page="/Account/Login"
+       asp-route-returnUrl="@Url.Action("Details, Post", new { Id = Model.Id})">Login to add a comment</a>
+
+}
+else
+{
+    <div class="row">
+        <div class="col">
+            <h3 class="text-center">ADD COMMENT</h3>
+            <form asp-action="Create" asp-controller="Comments" method="post">
+                <input type="hidden" name="PostId" value="@Model.Id" />
+                <textarea name="Body" rows="10" class="form-control"></textarea>
+                <button class="btn btn-dark btn-block btn-sm" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+}
+<hr />
+<div class="btn-sm btn-dark btn-block">@Model.Comments.Count Comment(s)</div>
+@foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
+{
+    <div row>
+        <div col="class">
+            <div class="media border p3">
+                <img src="@_imageService.DecodeImage(comment.Author.ImageData, comment.Author.ContentType)" alt="@comment.Author.FullName" class="mr-3 mt-3 rounded-circle" style="width:60px;" />
+                <h4>@comment.Author.FullName <small><i>Posted on @comment.Created.ToString("MMM dd, yyyy") </i></small></h4>
+                <p>@comment.Body</p>
+            </div>
+        </div>
+    </div>
+}
+

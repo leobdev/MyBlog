@@ -1,0 +1,70 @@
+﻿
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@using MyBlog.Services
+
+@inject IBlogImageService _imageService
+@model IPagedList<Post>
+
+
+@{
+
+    ViewData["Title"] = "Search Results Page";
+}
+
+
+<!-- Main Content-->
+<div class="container">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        @foreach (var post in Model)
+        {
+            <div class="post-preview">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <img class="img-fluid" src="@_imageService.DecodeImage(post.ImageData, post.ContentType)" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a class="btn btn-dark btn-block btn-sm" asp-controller="Posts" asp-action="BlogPostIndex" asp-route-id="@post.Slug">See Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <a href="post.html">
+                            <h2 class="post-title">@post.Title</h2>
+                            <h3 class="post-subtitle">@post.Abstract</h3>
+                        </a>
+                        <p class="post-meta">
+                            Posted by Leo Barnuevo on @post.Created.ToString("MMM dd, yyyy")
+                        </p>
+                   </div>
+                </div>
+            </div>
+            <hr />
+        }
+        <!-- Pager-->
+        <div class="clearfix"><a class="btn btn-primary float-right" href="#!">Older Posts →</a></div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col h3">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        @Html.PagedListPager(Model, page => Url.Action("SearchIndex", new { page = page, searchString = ViewData["SearchString"]}),
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new string[] { "page-item" },
+            PageClasses = new string[] { "page-link" }
+
+        })
+    </div>
+</div>

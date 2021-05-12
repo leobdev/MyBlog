@@ -1,0 +1,9 @@
+The Reason
+
+Many people have been asking me why I decided to change careers and start coding. I am sure many of you have encountered a question like this through the process. 
+Each of us have different reasons or motivation. Some are motivated by money or trend; others by curiosity to try something new. I will tell mines, not so different from the rest of you:
+
+1) The Call: 
+I have always been interested in computers. My first computer was an IBM that my dad brought from his office; Intel 80486 processor (right before Pentiums), 2MB RAM and 486MB HDD. A real dinosaur. It had running UNIX OS, and I could only do so much on this, but I wanted to learn more and try to master it. Somehow we managed to install MS-DOS, and that's when I really fell for it. I learned hundreds of commands, deleted and formtated disks just for fun, and installed software in diskettes. 
+In college I wrote my first lines of code in Pascal. I still remember that feeling of doing magic, like if I was opening a door of possibilities just by a simple "Hello World" or a basic calculator. 
+Then, 
