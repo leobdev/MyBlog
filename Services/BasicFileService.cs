@@ -9,7 +9,7 @@ namespace MyBlog.Services
 {
     public class BasicFileService : IBlogImageService
     {
-        private const int DefaultMaxFileSize = 2 * 1024 * 1024;
+        private const int DefaultMaxFileSize = (2 * 1024 * 1024);
         
         public string ContentType(IFormFile file)
         {

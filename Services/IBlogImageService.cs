@@ -23,6 +23,6 @@ namespace MyBlog.Services
         string ContentType(IFormFile file);
 
         int Size(IFormFile file);
-        object DecodeImage(Task<byte[]> lpImageData, string v);
+        
     }
 }

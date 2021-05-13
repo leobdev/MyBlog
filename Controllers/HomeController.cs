@@ -28,11 +28,11 @@ namespace MyBlog.Controllers
 
         public async Task<IActionResult> IndexAsync(int? page)
         {
-            var ImageData = _imageService.EncodeFileAsync("defaultBlogBackground");
-            ViewData["HeaderImage"] = _imageService.DecodeImage(ImageData,"png");
+         
 
-            ViewData["HeaderText"] = "Landing Page";
-            ViewData["SubText"] = "Landing Page";
+            ViewData["HeaderText"] = "Of Codes, Bugs and Men";
+            ViewData["SubText"] = "A Blog About Software Development, and The People Behind It";
+            ViewData["HeaderImage"] = "/img/defaultBlogImage.png";
 
             var pageNumber = page ?? 1;
             var pageSize = 5;

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using MyBlog.Data;
 using MyBlog.Models;
 using MyBlog.Services;
+using X.PagedList;
 
 namespace MyBlog.Controllers
 {

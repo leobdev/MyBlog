@@ -1,7 +1,8 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity 
 @using MyBlog.Services
 @inject IBlogImageService _imageService
 @model MyBlog.Models.Post
+@inject UserManager<BlogUser> useManager
 
 @{
     ViewData["Title"] = "Details";
@@ -52,4 +53,9 @@ else
         </div>
     </div>
 }
+
+
+<!--Comment section starts here-->
+
+
 
