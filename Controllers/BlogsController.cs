@@ -30,7 +30,7 @@ namespace MyBlog.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.ToListAsync());
+            return View(await _context.Blogs.ToListAsync());
         }
 
         // GET: Blogs/Details/5
