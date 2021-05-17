@@ -73,7 +73,7 @@ namespace MyBlog.Services
 
         public bool IsUnique(string slug)
         {
-            return !_context.Post.Any(cp => cp.Slug == slug);
+            return !_context.Posts.Any(cp => cp.Slug == slug);
         }
         private string RemapInternationalCharToAscii(char c)
         {

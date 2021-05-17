@@ -69,7 +69,7 @@ namespace MyBlog.Services
                 UserName = "LeoB@Mailinator.com",
                 FirstName = "Leo",
                 LastName = "Ba",
-                DisplayName = "Please Work Leo Can Delete Later",
+                DisplayName = "Working Now",
                 PhoneNumber = "555-1212",
                 EmailConfirmed = true,
                 ImageData = await _imageService.EncodeFileAsync("leob.png"),

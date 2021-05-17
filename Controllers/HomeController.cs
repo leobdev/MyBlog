@@ -26,7 +26,7 @@ namespace MyBlog.Controllers
             _imageService = imageService;
         }
 
-        public async Task<IActionResult> IndexAsync(int? page)
+        public async Task<IActionResult> Index(int? page)
         {
          
 
@@ -38,7 +38,7 @@ namespace MyBlog.Controllers
             var pageSize = 5;
             
             //Load the view up 
-            var allBlogs = await _context.Blogs.OrderByDescending(b => b.Created)
+            var allBlogs = await _context.Posts.OrderByDescending(b => b.Created)
                                                .ToPagedListAsync(pageNumber, pageSize);
 
             return View(allBlogs);

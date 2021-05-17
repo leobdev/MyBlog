@@ -5,7 +5,7 @@
 @using MyBlog.Services
 
 @inject IBlogImageService _imageService
-@model IPagedList<Blog>
+@model IPagedList<Post>
 
 
 @{
@@ -35,8 +35,8 @@
                     </div>
                     <div class="col">
                         <a href="post.html">
-                            <h2 class="post-title">@blog.Name</h2>
-                            <h3 class="post-subtitle">@blog.Description</h3>
+                            <h2 class="post-title">@blog.Title</h2>
+                            <h3 class="post-subtitle">@blog.Abstract</h3>
                         </a>
                         <p class="post-meta">
                             Posted by Leo Barnuevo on @blog.Created.ToString("MMM dd, yyyy")

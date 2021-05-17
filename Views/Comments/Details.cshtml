@@ -1,60 +1,88 @@
-﻿@model MyBlog.Models.Comment
+﻿//using/injection
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<BlogUser> userManager
+@model IEnumerable<MyBlog.Models.Comment>
 
-@{
-    ViewData["Title"] = "Details";
+
+@foreach (var comment in Model)
+{
+    //This can test against the Moderated date, the presence of the ModeratedBody, or ModerationType value > 0
+    if (comment.Moderated is null)
+    {
+        @Html.Raw(comment.Body)
+        <p class="text-sm-center">@comment.Author.FullName</p>
+
+    }
+    else
+    {
+        @Html.Raw(comment.ModeratedBody)
+        <p class="text-sm-center">@comment.Author.FullName</p>
+        <p class="text-sm-center">This comment has been moderated because @comment.ModerationType</p>
+    }
+
+    //The three users who can edit a comment, the owner, the mod, and the person who made the comment (if it hasn't been moderated)
+    if (User.IsInRole("Administrator") || User.IsInRole("Moderator") || (comment.Moderated is null && userManager.GetUserId(User) == comment.AuthorId))
+    {
+        <!-- Button trigger modal -->
+        //Ties the button to the modal through the PK of the comment
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit-@comment.Id">
+            Edit Comment
+        </button>
+
+        <!-- Modal -->
+        //Same Id structure as the button
+        <div class="modal fade" id="edit-@comment.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form asp-controller="PostComments" asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            //Properties that cannot be changed on the edit
+                            <input type="hidden" asp-for="@comment.Id" />
+                            <input type="hidden" asp-for="@comment.PostId" />
+                            <input type="hidden" asp-for="@comment.AuthorId" />
+                            <input type="hidden" asp-for="@comment.Created" />
+                            //This allows for Admin/Mod to update the ModeratedBody and see the original comment
+                            @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                            {
+                                @Html.Raw(comment.Body)
+                                <div class="form-group">
+                                    <label asp-for="@comment.ModerationType" class="control-label"></label>
+                                    <input asp-for="@comment.ModerationType" class="form-control" />
+                                    <span asp-validation-for="@comment.ModerationType" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@comment.ModeratedBody" class="control-label"></label>
+                                    <input asp-for="@comment.ModeratedBody" class="form-control" />
+                                    <span asp-validation-for="@comment.ModeratedBody" class="text-danger"></span>
+                                </div>
+                            }
+                            //This lets the original author change what they wrote
+                            else
+                            {
+                                <div class="form-group">
+                                    <label asp-for="@comment.Body" class="control-label"></label>
+                                    <input asp-for="@comment.Body" class="form-control" />
+                                    <span asp-validation-for="@comment.Body" class="text-danger"></span>
+                                </div>
+                            }
+                            <div class="form-group">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 }
-
-<h1>Details</h1>
-
-<div>
-    <h4>Comment</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Moderated)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Moderated)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModeratedBody)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModeratedBody)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ModerationType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ModerationType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Post)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Post.Abstract)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Author.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>

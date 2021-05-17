@@ -30,7 +30,7 @@ namespace MyBlog.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Blogs.ToListAsync());
+            return View(await _context.Posts.ToListAsync());
         }
 
         // GET: Blogs/Details/5
@@ -42,7 +42,7 @@ namespace MyBlog.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blogs
+            var blog = await _context.Posts
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (blog == null)
             {
@@ -93,7 +93,7 @@ namespace MyBlog.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blogs.FindAsync(id);
+            var blog = await _context.Posts.FindAsync(id);
             if (blog == null)
             {
                 return NotFound();
@@ -145,7 +145,7 @@ namespace MyBlog.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blogs
+            var blog = await _context.Posts
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (blog == null)
             {
@@ -160,15 +160,15 @@ namespace MyBlog.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var blog = await _context.Blogs.FindAsync(id);
-            _context.Blogs.Remove(blog);
+            var blog = await _context.Posts.FindAsync(id);
+            _context.Posts.Remove(blog);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BlogExists(int id)
         {
-            return _context.Blogs.Any(e => e.Id == id);
+            return _context.Posts.Any(e => e.Id == id);
         }
     }
 }

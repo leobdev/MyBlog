@@ -20,7 +20,7 @@ namespace MyBlog.Services
 
         public IQueryable<Post>SearchContent(string searchString) 
         {
-            var result = _context.Post.Where(p => p.PublishState == Enums.PublishState.ProductionReady);
+            var result = _context.Posts.Where(p => p.PublishState == Enums.PublishState.ProductionReady);
 
             if (string.IsNullOrEmpty(searchString))
             {

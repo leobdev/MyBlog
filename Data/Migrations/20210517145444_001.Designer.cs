@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBlog.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace MyBlog.Migrations
+namespace MyBlog.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210512131905_005")]
-    partial class _005
+    [Migration("20210517145444_001")]
+    partial class _001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -358,7 +358,7 @@ namespace MyBlog.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.ToTable("Post");
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

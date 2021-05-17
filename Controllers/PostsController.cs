@@ -22,7 +22,7 @@ namespace MyBlog.Controllers
         private readonly IConfiguration _configuration;
         private readonly BasicSlugService _slugService;
         private readonly SearchService _searchService;
-        
+
 
         public PostsController(ApplicationDbContext context, IBlogImageService imageService, IConfiguration configuration, BasicSlugService slugService, SearchService searchService)
         {
@@ -41,7 +41,7 @@ namespace MyBlog.Controllers
             }
 
             var blog = _context.Blogs.Find(id);
-            var blogPost = await _context.Post.Where(p => p.BlogId == id).ToListAsync();
+            var blogPost = await _context.Posts.Where(p => p.BlogId == id).ToListAsync();
             ViewData["HeaderText"] = blog.Name;
             ViewData["SubText"] = blog.Description;
             ViewData["HeaderImage"] = _imageService.DecodeImage(blog.ImageData, blog.ContentType);
@@ -53,9 +53,9 @@ namespace MyBlog.Controllers
         public async Task<IActionResult> Index()
         {
             ViewData["HeaderText"] = "MyBlog Posts";
-            ViewData["SubText"] = "All things tech-related";          
-            
-            var applicationDbContext = _context.Post.Include(p => p.Blog);
+            ViewData["SubText"] = "All things tech-related";
+
+            var applicationDbContext = _context.Posts.Include(p => p.Blog);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -68,7 +68,7 @@ namespace MyBlog.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Post
+            var post = await _context.Posts
                 .Include(p => p.Blog)
                 .Include(p => p.Comments)
                 .ThenInclude(c => c.Author)//Acts on the previous include
@@ -86,10 +86,18 @@ namespace MyBlog.Controllers
         }
 
         // GET: Posts/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
-            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Description");
-            return View();
+            var model = new Post();
+            if (id is not null)
+            {
+                model.BlogId = (int)id;
+            }
+            else
+            {
+                ViewData["BlogId"] = new SelectList(_context.Posts, "Id", "Description");
+            }
+            return View(model);
         }
 
         [HttpPost]
@@ -100,7 +108,7 @@ namespace MyBlog.Controllers
             var posts = _searchService.SearchContent(searchString);
             var pageNumber = page ?? 1;
             var pageSize = 2;
-            
+
             return View(await posts.ToPagedListAsync(pageNumber, pageSize));
         }
 
@@ -133,9 +141,9 @@ namespace MyBlog.Controllers
                 post.Slug = slug;
                 _context.Add(post);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("BlogPostIndex", new { id = post.BlogId});
+                return RedirectToAction("BlogPostIndex", new { id = post.BlogId });
             }
-            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Description", post.BlogId);
+            ViewData["BlogId"] = new SelectList(_context.Posts, "Id", "Description", post.BlogId);
             return View(post);
         }
 
@@ -147,12 +155,12 @@ namespace MyBlog.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Post.FindAsync(id);
+            var post = await _context.Posts.FindAsync(id);
             if (post == null)
             {
                 return NotFound();
             }
-            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Description", post.BlogId);
+            ViewData["BlogId"] = new SelectList(_context.Posts, "Id", "Description", post.BlogId);
             return View(post);
         }
 
@@ -173,14 +181,14 @@ namespace MyBlog.Controllers
                 try
                 {
                     var newSlug = _slugService.UrlFriendly(post.Title);
-                    if(post.Slug != newSlug)
+                    if (post.Slug != newSlug)
                     {
                         ModelState.AddModelError("tittle", "There is an issue with the Title. Please try again.");
                         return View(post);
                     }
                     post.Slug = newSlug;
-                    
-                    if(post.ImageFile is not null)
+
+                    if (post.ImageFile is not null)
                     {
                         post.ImageData = await _imageService.EncodeFileAsync(post.ImageFile);
                         post.ContentType = _imageService.ContentType(post.ImageFile);
@@ -204,7 +212,7 @@ namespace MyBlog.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Description", post.BlogId);
+            ViewData["BlogId"] = new SelectList(_context.Posts, "Id", "Description", post.BlogId);
             return View(post);
         }
 
@@ -216,7 +224,7 @@ namespace MyBlog.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Post
+            var post = await _context.Posts
                 .Include(p => p.Blog)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (post == null)
@@ -232,15 +240,15 @@ namespace MyBlog.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var post = await _context.Post.FindAsync(id);
-            _context.Post.Remove(post);
+            var post = await _context.Posts.FindAsync(id);
+            _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PostExists(int id)
         {
-            return _context.Post.Any(e => e.Id == id);
+            return _context.Posts.Any(e => e.Id == id);
         }
     }
 }

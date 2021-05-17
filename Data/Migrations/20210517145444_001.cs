@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace MyBlog.Migrations
+namespace MyBlog.Data.Migrations
 {
     public partial class _001 : Migration
     {
@@ -177,7 +177,7 @@ namespace MyBlog.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Post",
+                name: "Posts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -195,9 +195,9 @@ namespace MyBlog.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Post", x => x.Id);
+                    table.PrimaryKey("PK_Posts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Post_Blogs_BlogId",
+                        name: "FK_Posts_Blogs_BlogId",
                         column: x => x.BlogId,
                         principalTable: "Blogs",
                         principalColumn: "Id",
@@ -235,9 +235,9 @@ namespace MyBlog.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comments_Post_PostId",
+                        name: "FK_Comments_Posts_PostId",
                         column: x => x.PostId,
-                        principalTable: "Post",
+                        principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -295,8 +295,8 @@ namespace MyBlog.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Post_BlogId",
-                table: "Post",
+                name: "IX_Posts_BlogId",
+                table: "Posts",
                 column: "BlogId");
         }
 
@@ -327,7 +327,7 @@ namespace MyBlog.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Post");
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Blogs");

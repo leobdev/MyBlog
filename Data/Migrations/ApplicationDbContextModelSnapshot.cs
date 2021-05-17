@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBlog.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace MyBlog.Migrations
+namespace MyBlog.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -356,7 +356,7 @@ namespace MyBlog.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.ToTable("Post");
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
