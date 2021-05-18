@@ -1,11 +1,3 @@
-C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.GeneratedMSBuildEditorConfig.editorconfig
-C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.AssemblyInfoInputs.cache
-C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.AssemblyInfo.cs
-C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.csproj.CoreCompileInputs.cache
-C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.MvcApplicationPartsAssemblyInfo.cs
-C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.MvcApplicationPartsAssemblyInfo.cache
-C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.RazorAssemblyInfo.cache
-C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.RazorAssemblyInfo.cs
 C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\appsettings.Development.json
 C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\appsettings.json
 C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\MyBlog.StaticWebAssets.xml
@@ -421,6 +413,14 @@ C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dot
 C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.csprojAssemblyReference.cache
+C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.GeneratedMSBuildEditorConfig.editorconfig
+C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.AssemblyInfoInputs.cache
+C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.AssemblyInfo.cs
+C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.csproj.CoreCompileInputs.cache
+C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.MvcApplicationPartsAssemblyInfo.cs
+C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.MvcApplicationPartsAssemblyInfo.cache
+C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.RazorAssemblyInfo.cache
+C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.RazorAssemblyInfo.cs
 C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\staticwebassets\MyBlog.StaticWebAssets.Manifest.cache
 C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\staticwebassets\MyBlog.StaticWebAssets.xml
 C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\scopedcss\bundle\MyBlog.styles.css

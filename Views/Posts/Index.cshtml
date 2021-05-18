@@ -1,14 +1,83 @@
-﻿@model IEnumerable<MyBlog.Models.Post>
+﻿
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@using MyBlog.Services
+@inject IBlogImageService _imageService
+@model IEnumerable<MyBlog.Models.Post>
 
 @{
     ViewData["Title"] = "Index";
 }
+
+
+<!-- Main Content-->
+<div class="container">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        @foreach (var post in Model)
+        {
+            <div class="post-preview">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <img class="img-fluid" src="@_imageService.DecodeImage(post.ImageData, post.ContentType)" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a class="btn btn-dark btn-block btn-sm" asp-controller="Posts" asp-action="BlogPostIndex" asp-route-id="@post.Id">Read Posts</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <a href="post.html">
+                            <h2 class="post-title">@post.Title</h2>
+                            <h3 class="post-subtitle">@post.Abstract</h3>
+                        </a>
+                        <p class="post-meta">
+                            Posted by Leo Barnuevo on @post.Created.ToString("MMM dd, yyyy")
+                        </p>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <a class="btn-sm btn-dark" asp-action="Create" asp-controller="Posts" asp-route-blogId="@post.Title">Create Blogs</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <hr />
+        }
+
+        <!-- Pager-->
+    </div>
+
+</div>
+
+@*<div class="row">
+    <div class="col h3">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }),
+        new PagedListRenderOptions
+        {
+            LiElementClasses = new string[] { "page-item" },
+            PageClasses = new string[] { "page-link" }
+
+        })
+    </div>
+</div>*@
+
 
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -40,38 +109,39 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Abstract)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Updated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Slug)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishState)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Blog.Description)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Slug">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Abstract)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Updated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slug)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishState)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Blog.Description)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Slug">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -8,6 +8,8 @@
 @model IPagedList<Post>
 
 
+
+
 @{
 
     ViewData["Title"] = "Landing Page";
@@ -17,33 +19,33 @@
 <!-- Main Content-->
 <div class="container">
     <div class="col-lg-8 col-md-10 mx-auto">
-        @foreach (var blog in Model)
+        @foreach (var post in Model)
         {
             <div class="post-preview">
                 <div class="row">
                     <div class="col">
                         <div class="row">
                             <div class="col">
-                                <img class="img-fluid" src="@_imageService.DecodeImage(blog.ImageData, blog.ContentType)" />
+                                <img class="img-fluid" src="@_imageService.DecodeImage(post.ImageData, post.ContentType)" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-dark btn-block btn-sm" asp-controller="Posts" asp-action="BlogPostIndex" asp-route-id="@blog.Id">Read Posts</a>
+                                <a class="btn btn-dark btn-block btn-sm" asp-controller="Posts" asp-action="BlogPostIndex" asp-route-id="@post.Id">Read Posts</a>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <a href="post.html">
-                            <h2 class="post-title">@blog.Title</h2>
-                            <h3 class="post-subtitle">@blog.Abstract</h3>
+                            <h2 class="post-title">@post.Title</h2>
+                            <h3 class="post-subtitle">@post.Abstract</h3>
                         </a>
                         <p class="post-meta">
-                            Posted by Leo Barnuevo on @blog.Created.ToString("MMM dd, yyyy")
+                            Posted by Leo Barnuevo on @post.Created.ToString("MMM dd, yyyy")
                         </p>
                         @if (User.IsInRole("Administrator"))
                         {
-                            <a class="btn-sm btn-dark btn-block" asp-action="Create" asp-controller="Posts" asp-route-blogId="@blog.Id">Create Post</a>
+                            <a class="btn-sm btn-dark" asp-action="Create" asp-controller="Posts" asp-route-blogId="@post.Title">Create Blogs</a>
                         }
                     </div>
                 </div>
@@ -52,7 +54,6 @@
         }
 
         <!-- Pager-->
-        <div class="clearfix"><a class="btn btn-primary float-right" href="#!">Older Posts →</a></div>
     </div>
 
 </div>
@@ -64,11 +65,11 @@
 </div>
 <div class="row">
     <div class="col">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }), 
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }),
         new PagedListRenderOptions
         {
-            LiElementClasses = new string[]{"page-item"},
-            PageClasses = new string[]{"page-link"}
+            LiElementClasses = new string[] { "page-item" },
+            PageClasses = new string[] { "page-link" }
 
         })
     </div>

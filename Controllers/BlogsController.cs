@@ -42,7 +42,7 @@ namespace MyBlog.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Posts
+            var blog = await _context.Blogs
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (blog == null)
             {
@@ -93,7 +93,7 @@ namespace MyBlog.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Posts.FindAsync(id);
+            var blog = await _context.Blogs.FindAsync(id);
             if (blog == null)
             {
                 return NotFound();

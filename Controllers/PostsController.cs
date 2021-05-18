@@ -33,7 +33,7 @@ namespace MyBlog.Controllers
             _searchService = searchService;
         }
 
-        public async Task<ActionResult> BlogPostIndex(int? id)
+        public async Task<ActionResult> BlogPostIndex(int? id, int? page)
         {
             if (id == null)
             {
@@ -46,7 +46,13 @@ namespace MyBlog.Controllers
             ViewData["SubText"] = blog.Description;
             ViewData["HeaderImage"] = _imageService.DecodeImage(blog.ImageData, blog.ContentType);
 
-            return View("Index", blogPost);
+            var pageNumber = page ?? 1;
+            var pageSize = 5;
+
+            var allPosts = await _context.Posts.OrderByDescending(b => b.Created)
+                                               .ToPagedListAsync(pageNumber, pageSize);
+
+            return View("Index", allPosts);
         }
 
         // GET: Posts
@@ -61,18 +67,20 @@ namespace MyBlog.Controllers
 
         // GET: Posts/Details/5
         [AllowAnonymous]
-        public async Task<IActionResult> Details(string slug)//Takes slug, not id
+        public async Task<IActionResult> Details(string slug, int? fromPage)//Takes slug, not id
         {
             if (string.IsNullOrEmpty(slug))
             {
                 return NotFound();
             }
+            ViewData["FromPage"] = fromPage;
 
             var post = await _context.Posts
                 .Include(p => p.Blog)
                 .Include(p => p.Comments)
                 .ThenInclude(c => c.Author)//Acts on the previous include
                 .FirstOrDefaultAsync(m => m.Slug == slug);
+
             if (post == null)
             {
                 return NotFound();
@@ -95,7 +103,7 @@ namespace MyBlog.Controllers
             }
             else
             {
-                ViewData["BlogId"] = new SelectList(_context.Posts, "Id", "Description");
+                ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Description");
             }
             return View(model);
         }
