@@ -4,6 +4,7 @@
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
+    ViewData["HeaderImage"] = "/img/defaultBlogImage.png";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -75,7 +76,7 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button type="submit" class="btn-sm btn-dark" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                                 }
                             </p>
                         </div>

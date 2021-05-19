@@ -145,5 +145,46 @@ namespace MyBlog.Controllers
         {
             return _context.Comments.Any(e => e.Id == id);
         }
+
+        // GET: Comments/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var comment = await _context.Comments
+                .Include(c => c.Author)
+                .Include(c => c.Moderator)
+                .Include(c => c.Post)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return View(comment);
+        }
+
+        // POST: Comments/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var comment = await _context.Comments.FindAsync(id);
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool CommentExists(int? id)
+        {
+            return _context.Comments.Any(e => e.Id == id);
+        }
     }
+
+    
 }
+
+
