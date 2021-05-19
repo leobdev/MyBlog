@@ -108,7 +108,6 @@ namespace MyBlog.Areas.Identity.Pages.Account
 
                 var user = new BlogUser
                 {
-
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     DisplayName = Input.DisplayName,

@@ -7,14 +7,10 @@
 @inject IBlogImageService _imageService
 @model IPagedList<Post>
 
-
-
-
 @{
 
     ViewData["Title"] = "Landing Page";
 }
-
 
 <!-- Main Content-->
 <div class="container">
@@ -31,7 +27,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <a class="btn btn-dark btn-block btn-sm" asp-controller="Posts" asp-action="BlogPostIndex" asp-route-id="@post.Id">Read Posts</a>
+                                <a class="btn btn-dark btn-block btn-sm" asp-controller="Posts" asp-action="Details" asp-route-slug="@post.Slug">Read Posts</a>
                             </div>
                         </div>
                     </div>
@@ -52,7 +48,6 @@
             </div>
             <hr />
         }
-
         <!-- Pager-->
     </div>
 
