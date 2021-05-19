@@ -53,8 +53,8 @@ else
                  <h4>@comment.Author.FullName <small><i>Posted on @comment.Created.ToString("MMM dd, yyyy") </i></small></h4>
                  <p class="text-left">@comment.Body</p>
                  <hr />
-                 <a class="btn-sm btn-dark" asp-action="Edit" asp-controller="Comments">Edit Comment</a>
-                 <a class="btn-sm btn-dark" asp-action="Delete" asp-controller="Comments">Delete Comment</a>
+                 <a class="btn-sm btn-dark" asp-action="Edit" asp-controller="Comments" asp-route-comment="@comment.PostId">Edit Comment</a>
+                 <a class="btn-sm btn-dark" asp-action="Delete" asp-controller="Comments" asp-route-comment="@comment.PostId">Delete Comment</a>
              </div>
          </div>
      </div>
