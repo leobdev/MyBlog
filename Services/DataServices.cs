@@ -29,6 +29,8 @@ namespace MyBlog.Services
             _userManager = userManager;
         }
 
+       
+
         public async Task ManageDataAsync()
         {
             //Task 0: Make sure the DB is present by running through the migrations
@@ -69,13 +71,14 @@ namespace MyBlog.Services
                 UserName = "LeoB@Mailinator.com",
                 FirstName = "Leo",
                 LastName = "Ba",
-                DisplayName = "Working Now",
+                DisplayName = "Account Info",
                 PhoneNumber = "555-1212",
                 EmailConfirmed = true,
                 ImageData = await _imageService.EncodeFileAsync("leob.png"),
                 ContentType = "png"
 
             };
+            
 
             await _userManager.CreateAsync(adminUser, _configuration["AdminPassword"]);
 

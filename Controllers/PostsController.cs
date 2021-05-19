@@ -67,13 +67,13 @@ namespace MyBlog.Controllers
 
         // GET: Posts/Details/5
         [AllowAnonymous]
-        public async Task<IActionResult> Details(string slug, int? fromPage)//Takes slug, not id
+        public async Task<IActionResult> Details(string slug)//Takes slug, not id
         {
             if (string.IsNullOrEmpty(slug))
             {
                 return NotFound();
             }
-            ViewData["FromPage"] = fromPage;
+          
 
             var post = await _context.Posts
                 .Include(p => p.Blog)

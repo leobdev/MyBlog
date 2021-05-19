@@ -1,6 +1,7 @@
 ﻿using MyBlog.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,6 +32,9 @@ namespace MyBlog.Models
         public virtual BlogUser Author { get; set; }
 
         public virtual BlogUser Moderator { get; set; }
+
+        [NotMapped]
+        public virtual Post Slug { get; set; }
 
     }
 }

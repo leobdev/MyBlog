@@ -55,16 +55,17 @@ namespace MyBlog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("postId,Body")] Comment comment)
+        public async Task<IActionResult> Create([Bind("PostId,Body")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                var slug = (await _context.Posts.FindAsync(comment.PostId)).Slug;
                 comment.Created = DateTime.Now;
                 comment.AuthorId = _userManager.GetUserId(User);
 
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Details", "Posts", new { id = comment.PostId });
+                return RedirectToAction("Details", "Posts", new { slug });
             }
 
             return View(comment);
