@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyBlog.Data;
@@ -31,6 +33,7 @@ namespace MyBlog.Controllers
         }
 
         // GET: Comments/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -57,6 +60,11 @@ namespace MyBlog.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PostId,Body")] Comment comment)
         {
+            if (string.IsNullOrEmpty(comment.Body))
+            {
+                return NotFound("Comment not found. Please go back to previous page and write your comment.");
+            }
+            
             if (ModelState.IsValid)
             {
                 var slug = (await _context.Posts.FindAsync(comment.PostId)).Slug;
@@ -72,12 +80,14 @@ namespace MyBlog.Controllers
         }
 
         // GET: Comments/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
+
 
             var comment = await _context.Comments.FindAsync(id);
             if (comment == null)
@@ -147,6 +157,7 @@ namespace MyBlog.Controllers
         }
 
         // GET: Comments/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

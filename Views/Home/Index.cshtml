@@ -32,25 +32,20 @@
                         </div>
                     </div>
                     <div class="col">
-                        <a href="post.html">
+                        <a asp-controller="Posts" asp-action="Details" asp-route-slug="@post.Slug">
                             <h2 class="post-title">@post.Title</h2>
                             <h6 class="post-subtitle">@post.Abstract</h6>
                         </a>
                         <p class="post-meta">
                             Posted by Leo Barnuevo on @post.Created.ToString("MMM dd, yyyy")
                         </p>
-                        @if (User.IsInRole("Administrator"))
-                        {
-                            <a class="btn-sm btn-dark" asp-action="Create" asp-controller="Posts" asp-route-blogId="@post.Title">Create Blogs</a>
-                        }
                     </div>
                 </div>
             </div>
             <hr />
-        }
+         }
         <!-- Pager-->
     </div>
-
 </div>
 
 <div class="row">

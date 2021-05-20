@@ -94,6 +94,7 @@ namespace MyBlog.Controllers
         }
 
         // GET: Posts/Create
+        [Authorize]
         public IActionResult Create(int? id)
         {
             var model = new Post();
@@ -156,6 +157,7 @@ namespace MyBlog.Controllers
         }
 
         // GET: Posts/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -225,6 +227,7 @@ namespace MyBlog.Controllers
         }
 
         // GET: Posts/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
