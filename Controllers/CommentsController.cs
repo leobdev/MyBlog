@@ -26,6 +26,7 @@ namespace MyBlog.Controllers
         }
 
         // GET: Comments
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Comments.Include(c => c.Author).Include(c => c.Post);
@@ -62,9 +63,9 @@ namespace MyBlog.Controllers
         {
             if (string.IsNullOrEmpty(comment.Body))
             {
-                return NotFound("Comment not found. Please go back to previous page and write your comment.");
+                return View("Body", "Body not found. Please go back to previous page and write your comment.");
             }
-            
+
             if (ModelState.IsValid)
             {
                 var slug = (await _context.Posts.FindAsync(comment.PostId)).Slug;
@@ -184,9 +185,11 @@ namespace MyBlog.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var comment = await _context.Comments.FindAsync(id);
+            var post = await _context.Posts.FindAsync(comment.PostId);
+
             _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Posts", new { post.Slug });
         }
 
         private bool CommentExists(int? id)
@@ -195,7 +198,7 @@ namespace MyBlog.Controllers
         }
     }
 
-    
+
 }
 
 

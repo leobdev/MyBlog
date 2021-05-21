@@ -40,37 +40,22 @@ namespace MyBlog.Areas.Identity.Pages.Account.Manage
         public InputModel Input { get; set; }
 
         public class InputModel
-        {
-            [Required]
-            [Display(Name = "First Name")]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            public string FirstName { get; set; }
-
-            [Required]
-            [Display(Name = "Last Name")]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            public string LastName { get; set; }
-
+        {      
             [Display(Name = "Display Name")]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
             public string DisplayName { get; set; }
 
-            [Required]
+            //[Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Phone]
             [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
-
-            public byte[] ImageData { get; set; }
-            public string ContentType { get; set; }
-
-
-            [NotMapped]
-            [Display(Name = "ImageFile")]
-            public string NewImage { get; set; }
+              
+            
+            public IFormFile NewImage { get; set; }
 
         }
 

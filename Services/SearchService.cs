@@ -29,7 +29,8 @@ namespace MyBlog.Services
                                       p.Content.Contains(searchString) ||
                                       p.Comments.Any(c => c.Body.Contains(searchString) ||
                                                           c.ModeratedBody.Contains(searchString) ||
-                                                          c.Author.FullName.Contains(searchString)));
+                                                          c.Author.FirstName.Contains(searchString) ||
+                                                          c.Author.LastName.Contains(searchString)));
             }
         
             return result.OrderByDescending(p => p.Created);

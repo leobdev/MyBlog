@@ -3934,8 +3934,8 @@ input[type=button].btn-block {
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #0085A1;
+  color: white;
+  background-color: black;
 }
 
 .nav-fill > .nav-link,
@@ -4631,9 +4631,17 @@ input[type=button].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #0085A1;
-  border-color: #0085A1;
+  background-color: black;
+  border-color: black;
 }
+
+#paging-active {
+    z-index: 3;
+    color: #fff;
+    background-color: black;
+    border-color: black;
+}
+
 .page-item.disabled .page-link {
   color: #6c757d;
   pointer-events: none;
@@ -10030,11 +10038,11 @@ h6 {
 }
 
 a {
-  color: #212529;
+    color: #343a40;
 }
-a:focus, a:hover {
-  color: #0085A1;
-}
+    a:focus, a:hover {
+        color: #343a40;
+    }
 
 blockquote {
   font-style: italic;
