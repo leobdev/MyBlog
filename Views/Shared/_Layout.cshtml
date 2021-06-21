@@ -39,6 +39,10 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="swagger" asp-action="Index">API</a>
+                    </li>
+
                     @if (User.IsInRole("Administrator"))
                     {
                         <li class="nav-item">
@@ -48,16 +52,16 @@
                             <a class="nav-link" asp-controller="Posts" asp-action="Create">Create Post</a>
                         </li>
                     }
-                    <partial name="_LoginPartial" />         
-                </ul>                
+                    <partial name="_LoginPartial" />
+                </ul>
                 <form asp-action="SearchIndex" asp-controller="Posts">
                     <div class="form-group input-group offset-2 pt-4">
                         <input type="text" name="SearchString" class="form-control" placeholder="Search Term">
                         <div class="input-group-append">
-                            <button class="btn btn-warning btn-sm" type="submit">Search</button>                                             
+                            <button class="btn btn-warning btn-sm" type="submit">Search</button>
                         </div>
                     </div>
-                </form>              
+                </form>
             </div>
         </div>
     </nav>
@@ -121,6 +125,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
     <script src="~/js/summernote-bs4.js"></script>
     <script src="~/js/scripts.js"></script>
+    
+    <!--Sweet Alert 2-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function () {

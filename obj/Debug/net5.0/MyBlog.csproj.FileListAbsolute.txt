@@ -412,7 +412,6 @@ C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotne
 C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.csprojAssemblyReference.cache
 C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.GeneratedMSBuildEditorConfig.editorconfig
 C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.AssemblyInfoInputs.cache
 C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.AssemblyInfo.cs
@@ -498,3 +497,8 @@ C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.dll
 C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\ref\MyBlog.dll
 C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.pdb
 C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.genruntimeconfig.cache
+C:\Coder_Foundry_Files\MyBlog\obj\Debug\net5.0\MyBlog.csproj.AssemblyReference.cache
+C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Coder_Foundry_Files\MyBlog\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll

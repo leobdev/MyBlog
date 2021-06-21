@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using MyBlog.Data;
 using MyBlog.Models;
 using MyBlog.Services;
@@ -32,8 +33,8 @@ namespace MyBlog
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(Connection.GetConnectionString(Configuration)));
-                    
-                    //Configuration.GetConnectionString("DefaultConnection")));
+
+            //Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -49,17 +50,25 @@ namespace MyBlog
             services.AddScoped<SearchService>();
             services.AddScoped<DataServices>();
             services.AddScoped<BasicSlugService>();
-            
 
-
-           
-
-            //AddScoped<IImageService, BasicImageService>();
-
-            
-
+            //add my swagger service reference ere
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Blog API",
+                    Version = "V1",
+                    Description = "Serving up Blog data using .NET Core",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Leo Barnuevo",
+                        Email = "leocoding.net@gmail.com",
+                        Url = new System.Uri("https://www.linkedin.com/in/leonardo-barnuevo")
+                    }
+                });
+                //AddScoped<IImageService, BasicImageService>();
+            });
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -74,6 +83,14 @@ namespace MyBlog
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestAPI v1");
+                    c.DocumentTitle = "Leo's Blog Public API";
+                });
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
