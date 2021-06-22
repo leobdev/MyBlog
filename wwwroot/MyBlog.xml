@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyBlog</name>
+    </assembly>
+    <members>
+        <member name="M:MyBlog.Controllers.API.PostsApiController.GetTopXPost(System.Int32)">
+            <summary>
+            This Method will get the most recent X number of Blog Posts
+            </summary>
+            <param name="num">The number of BlogPosts you want...</param>
+            <returns>The latest num of number of blogPost ordered by created descending</returns>
+        </member>
+    </members>
+</doc>

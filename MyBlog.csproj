@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Coder_Foundry_Files\MyBlog\wwwroot</DocumentationFile>
+    <DocumentationFile>C:\Coder_Foundry_Files\MyBlog\wwwroot\MyBlog.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
