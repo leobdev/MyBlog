@@ -14,6 +14,7 @@ using MyBlog.Models;
 using MyBlog.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,6 +34,14 @@ namespace MyBlog
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(Connection.GetConnectionString(Configuration)));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("DefaultPolicy",
+                    builder => builder.AllowAnyOrigin()
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader());
+            });
 
             //Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -54,6 +63,9 @@ namespace MyBlog
             //add my swagger service reference ere
             services.AddSwaggerGen(c =>
             {
+               
+                c.IncludeXmlComments($"{Directory.GetCurrentDirectory()}/wwwroot/MyBlog.xml", true);
+                
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Blog API",
@@ -84,12 +96,16 @@ namespace MyBlog
                 app.UseHsts();
             }
 
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestAPI v1");
-                    c.DocumentTitle = "Leo's Blog Public API";
-                });
+
+            app.UseCors("DefaultPolicy");
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestAPI v1");
+                c.InjectJavascript("/swagger/swagger.js");
+                c.InjectStylesheet("/swagger/swagger.css");
+                c.DocumentTitle = "Leo's Blog Public API";
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

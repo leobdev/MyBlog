@@ -15,6 +15,7 @@ namespace MyBlog.Models
 
         public int BlogId { get; set; }
 
+
         [Required]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at most {1} characters", MinimumLength = 2)]
         public string Title { get; set; }
